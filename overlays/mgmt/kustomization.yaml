@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: pulp
+configurations:
+- kustomize-config.yaml
+resources:
+- ../../bases/v1.0.1
+- config-maps.yaml
+- sealed-secrets.yaml
+- pulp.yaml
+secretGenerator:
+- name: pulp-credentials
+  files:
+    - ./sealed-secrets.yaml
+  options:
+    annotations:
+      config.kubernetes.io/local-config: "true"

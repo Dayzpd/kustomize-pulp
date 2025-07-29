@@ -1,0 +1,37 @@
+---
+apiVersion: repo-manager.pulpproject.org/v1
+kind: Pulp
+metadata:
+  name: pulp
+spec:
+  custom_pulp_settings: custom-pulp-settings
+  admin_password_secret: "pulp-credentials"
+  api:
+    replicas: 1
+  content:
+    replicas: 2
+  web:
+    replicas: 2
+  worker:
+    replicas: 2
+  cache:
+    redis_storage_class: microk8s-hostpath
+  database:
+    postgres_storage_class: microk8s-hostpath
+    postgres_storage_requirements: 20Gi
+  file_storage_access_mode: "ReadWriteMany"
+  file_storage_size: "300Gi"
+  file_storage_storage_class: microk8s-hostpath
+  ingress_annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:8002, http://127.0.0.1:8002"
+  ingress_type: ingress
+  ingress_host: pulp.local.zachary.day
+  ingress_class_name: nginx
+  ingress_tls_secret: pulp-tls
+  # I think pulp may be assuming use of nginx-ingress and not ingress-nginx from the kubernetes-sigs org.
+  nginx_proxy_connect_timeout: "120"
+  nginx_proxy_read_timeout: "120"
+  nginx_proxy_send_timeout: "120"
+  is_nginx_ingress: true
