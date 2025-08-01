@@ -7,6 +7,9 @@ spec:
   custom_pulp_settings: custom-pulp-settings
   admin_password_secret: "pulp-credentials"
   api:
+    env_vars:
+    - name: TOKEN_AUTH_DISABLED
+      value: "True"
     replicas: 1
   content:
     replicas: 2
