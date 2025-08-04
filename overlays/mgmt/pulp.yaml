@@ -12,10 +12,19 @@ spec:
       value: "True"
     replicas: 1
   content:
+    env_vars:
+    - name: TOKEN_AUTH_DISABLED
+      value: "True"
     replicas: 2
   web:
+    env_vars:
+    - name: TOKEN_AUTH_DISABLED
+      value: "True"
     replicas: 2
   worker:
+    env_vars:
+    - name: TOKEN_AUTH_DISABLED
+      value: "True"
     replicas: 2
   cache:
     redis_storage_class: microk8s-hostpath
