@@ -7,3 +7,4 @@ data:
   api_root: '"/pulp/"'
   allowed_export_paths: '[ "/tmp" ]'
   allowed_import_paths: '[ "/tmp" ]'
+  TOKEN_AUTH_DISABLED: "True"
